@@ -27,11 +27,10 @@ A modern, high-performance, full-stack E-Commerce platform built with **MongoDB 
 
 | Layer | Technology |
 | :--- | :--- |
-| **Frontend** | React (Vite), Redux (with Redux-Thunk), React Router v6, Axios, Lucide Icons, Vanilla CSS |
+| **Frontend** | React 19 (Vite), Redux (with Redux-Thunk), React Router v7, Axios, Lucide Icons |
 | **Backend** | Node.js, Express.js REST API |
 | **Authentication**| JSON Web Tokens (JWT) + BcryptJS Password Hashing |
 | **Database** | MongoDB & MongoDB Atlas (via Mongoose ODM) |
-| **Alternate Backend**| Archived Python / Django 5 REST Framework backend available in `backend-django/` |
 
 ---
 
@@ -51,39 +50,16 @@ major_project/
 │   │   ├── userRoutes.js      # /api/users
 │   │   ├── productRoutes.js   # /api/products
 │   │   └── orderRoutes.js     # /api/orders
-│   ├── controllers/           # Modular request controllers
+│   ├── controllers/           # Modular request controllers (users, products, orders)
 │   ├── middleware/            # JWT auth & error middleware
 │   ├── seeder.js              # MongoDB database seeder script
 │   ├── server.js              # Express app & route mounting
-│   ├── vercel.json            # Vercel serverless deployment config
-│   └── package.json
-│   ├── users/                 # User authentication, profiles, and admin accounts
-│   │   ├── models.py          # UserProfile model
-│   │   ├── serializers.py     # UserSerializer & UserSerializerWithToken
-│   │   ├── views.py           # Login, Register, Profile, Admin User CRUD
-│   │   ├── urls.py
-│   │   └── tests.py
-│   ├── products/              # Products, Categories, and Customer Reviews
-│   │   ├── models.py          # Product and Review models
-│   │   ├── serializers.py     # ProductSerializer, ReviewSerializer
-│   │   ├── views.py           # Catalog search, filter, product details, admin CRUD
-│   │   ├── urls.py
-│   │   ├── management/
-│   │   │   └── commands/
-│   │   │       └── seed_data.py # Seed script with 12+ products, 3 users, 5 orders
-│   │   └── tests.py
-│   ├── orders/                # Orders, Order Items, and Shipping Addresses
-│   │   ├── models.py          # Order, OrderItem, ShippingAddress models
-│   │   ├── serializers.py     # OrderSerializer, OrderItemSerializer
-│   │   ├── views.py           # addOrder, getMyOrders, getOrderById, deliverOrder, summary
-│   │   ├── urls.py
-│   │   └── tests.py
-│   ├── requirements.txt       # Python dependencies
-│   ├── .env                   # Environment variables (DB credentials, secret keys)
+│   ├── vercel.json            # Vercel deployment config
+│   ├── .env                   # Environment variables (MONGO_URI, JWT_SECRET, PORT)
 │   ├── .env.example
-│   └── manage.py
+│   └── package.json
 │
-├── frontend/
+├── frontend/                  # React 19 + Vite SPA Client
 │   ├── public/
 │   ├── src/
 │   │   ├── actions/           # Redux action creators (product, user, cart, order)
@@ -98,6 +74,7 @@ major_project/
 │   │   ├── App.jsx            # React Router definitions & protected route guards
 │   │   ├── index.css          # Design system, responsive layout, glassmorphic UI
 │   │   └── main.jsx
+│   ├── vercel.json            # Single-page-app routing rewrites
 │   ├── package.json
 │   └── vite.config.js
 │
@@ -109,66 +86,40 @@ major_project/
 ## 🚀 Getting Started
 
 ### 1. Prerequisites
-- **Python 3.10+**
 - **Node.js 18+** & **npm**
-- **MySQL Server** (Optional: SQLite will automatically be used if MySQL is not running)
+- **MongoDB** (Local MongoDB Community Server or MongoDB Atlas cloud URI)
 
 ---
 
-### 2. Backend Setup
+### 2. Backend Setup (Node.js & Express)
 
 1. Open your terminal and navigate to the `backend/` directory:
    ```bash
    cd backend
    ```
 
-2. Create and activate a Python virtual environment:
-   - **Windows (PowerShell):**
-     ```powershell
-     python -m venv venv
-     .\venv\Scripts\Activate.ps1
-     ```
-   - **macOS / Linux:**
-     ```bash
-     python3 -m venv venv
-     source venv/bin/activate
-     ```
-
-3. Install required Python packages:
+2. Install Node dependencies:
    ```bash
-   pip install -r requirements.txt
+   npm install
    ```
 
-4. Configure Database in `.env`:
+3. Configure Environment Variables in `backend/.env`:
    ```env
-   SECRET_KEY=django-insecure-major-ecommerce-secret-key-production-ready-2026!
-   DEBUG=True
-   ALLOWED_HOSTS=localhost,127.0.0.1
-
-   # MySQL Configuration
-   USE_SQLITE=False
-   DB_NAME=ecommerce_db
-   DB_USER=root
-   DB_PASSWORD=your_mysql_password
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
+   PORT=8000
+   NODE_ENV=development
+   MONGO_URI=mongodb://127.0.0.1:27017/apexmart_db
+   JWT_SECRET=supersecretjwtkey123
    ```
-   > 💡 *Note:* If MySQL is not running, Django will gracefully use the local `db.sqlite3` file without crashing.
+   *(For cloud deployment, replace `MONGO_URI` with your MongoDB Atlas connection string).*
 
-5. Run migrations to generate database tables:
+4. Seed the database with sample products, admin accounts, and customers:
    ```bash
-   python manage.py makemigrations users products orders
-   python manage.py migrate
+   npm run seed
    ```
 
-6. Seed database with realistic sample products, users, reviews, and orders:
+5. Run the Express backend server:
    ```bash
-   python manage.py seed_data
-   ```
-
-7. Run Django API server:
-   ```bash
-   python manage.py runserver 127.0.0.1:8000
+   npm run dev
    ```
    API will be active at `http://127.0.0.1:8000/`.
 
