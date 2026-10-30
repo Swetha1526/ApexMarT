@@ -1,6 +1,6 @@
 # 🛍️ ApexMart - Production-Style Full-Stack E-Commerce Web Application
 
-A modern, high-performance, full-stack E-Commerce platform built with **Python**, **Django REST Framework**, **MySQL**, **React**, and **Redux**.
+A modern, high-performance, full-stack E-Commerce platform built with **MongoDB (Mongoose)**, **Express.js**, **React 19**, and **Node.js** (MERN Stack with Redux).
 
 ---
 
@@ -28,9 +28,10 @@ A modern, high-performance, full-stack E-Commerce platform built with **Python**
 | Layer | Technology |
 | :--- | :--- |
 | **Frontend** | React (Vite), Redux (with Redux-Thunk), React Router v6, Axios, Lucide Icons, Vanilla CSS |
-| **Backend** | Python 3, Django 5.x, Django REST Framework, Django ORM, PyMySQL |
-| **Authentication**| Django Auth System + SimpleJWT (JSON Web Tokens) |
-| **Database** | MySQL (with automatic SQLite fallback for zero-setup local dev) |
+| **Backend** | Node.js, Express.js REST API |
+| **Authentication**| JSON Web Tokens (JWT) + BcryptJS Password Hashing |
+| **Database** | MongoDB & MongoDB Atlas (via Mongoose ODM) |
+| **Alternate Backend**| Archived Python / Django 5 REST Framework backend available in `backend-django/` |
 
 ---
 
@@ -39,11 +40,23 @@ A modern, high-performance, full-stack E-Commerce platform built with **Python**
 ```
 major_project/
 │
-├── backend/
-│   ├── ecommerce/             # Django root configuration (settings, URLs, WSGI)
-│   │   ├── settings.py        # App config, database settings, JWT & CORS setup
-│   │   ├── urls.py            # API routing entrypoint
-│   │   └── wsgi.py
+├── backend/                   # Node.js + Express + MongoDB REST API
+│   ├── config/
+│   │   └── db.js              # MongoDB & MongoDB Atlas connection handler
+│   ├── models/
+│   │   ├── User.js            # User Schema with Bcrypt hashing
+│   │   ├── Product.js         # Product and Review Schema
+│   │   └── Order.js           # Order and Shipping Address Schema
+│   ├── routes/
+│   │   ├── userRoutes.js      # /api/users
+│   │   ├── productRoutes.js   # /api/products
+│   │   └── orderRoutes.js     # /api/orders
+│   ├── controllers/           # Modular request controllers
+│   ├── middleware/            # JWT auth & error middleware
+│   ├── seeder.js              # MongoDB database seeder script
+│   ├── server.js              # Express app & route mounting
+│   ├── vercel.json            # Vercel serverless deployment config
+│   └── package.json
 │   ├── users/                 # User authentication, profiles, and admin accounts
 │   │   ├── models.py          # UserProfile model
 │   │   ├── serializers.py     # UserSerializer & UserSerializerWithToken

@@ -41,7 +41,7 @@ const OrderScreen = () => {
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
 
   useEffect(() => {
-    if (!order || successPay || successDeliver || order.id !== Number(id)) {
+    if (!order || successPay || successDeliver || String(order.id) !== String(id)) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(id));
