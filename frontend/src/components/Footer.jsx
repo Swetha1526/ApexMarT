@@ -125,7 +125,7 @@ const Footer = () => {
               </span>
             </div>
             <p style={{ fontSize: '0.885rem', lineHeight: '1.6', color: '#94a3b8', maxWidth: '320px' }}>
-              Full-Stack Academic Major Project built with Django REST Framework, MySQL, React, and Redux.
+              Next-generation full-stack e-commerce platform offering premium curated products, secure checkout, and lightning-fast delivery.
             </p>
           </div>
 
@@ -147,16 +147,6 @@ const Footer = () => {
               <li><Link to="/profile">Order History</Link></li>
               <li><Link to="/cart">Shopping Cart</Link></li>
               <li><Link to="/shipping">Shipping Info</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="footer-heading">Tech Stack</h4>
-            <ul className="footer-links">
-              <li><span style={{ color: '#c7d2fe' }}>Backend:</span> Django & DRF</li>
-              <li><span style={{ color: '#c7d2fe' }}>Database:</span> MySQL</li>
-              <li><span style={{ color: '#c7d2fe' }}>Frontend:</span> React & Redux</li>
-              <li><span style={{ color: '#c7d2fe' }}>Auth:</span> JWT Tokens</li>
             </ul>
           </div>
         </div>

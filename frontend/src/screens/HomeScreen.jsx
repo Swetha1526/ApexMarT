@@ -42,7 +42,7 @@ const HomeScreen = () => {
           <span>Engineered for Excellence.</span>
         </h1>
         <p className="hero-desc">
-          Experience seamless online shopping powered by Django REST Framework and React. Ultra-responsive, fully secure, and integrated with MySQL database.
+          Discover a curated catalog of premium electronics, fashion, and lifestyle essentials. Enjoy seamless shopping, verified customer ratings, and instant order tracking.
         </p>
         <div className="hero-actions">
           <Link to="/products" className="btn btn-primary btn-lg">
